@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ company.name }} - Payroll {{ month }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.3;
+            color: #2c2c2c;
+            background: #ffffff;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            padding: 15px;
+            position: relative;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 60px;
+            font-weight: 200;
+            color: rgba(0, 0, 0, 0.02);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: 4px;
+        }
+
+        /* Header Section */
+        .header {
+            position: relative;
+            z-index: 1;
+            background: #2c3e50;
+            color: white;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .company-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .company-info .subtitle {
+            font-size: 14px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .payroll-info {
+            text-align: right;
+        }
+
+        .payroll-info .month {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .payroll-info .details {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Summary Cards */
+        .summary-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid #d1d5db;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .summary-card .label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .summary-card .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        /* Table Section */
+        .table-section {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border: 1px solid #d1d5db;
+        }
+
+        .table-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #d1d5db;
+        }
+
+        .table-header h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 3px;
+        }
+
+        .table-header .subtitle {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead tr {
+            background: #374151;
+        }
+
+        th {
+            padding: 12px 8px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        td {
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 10px;
+            color: #374151;
+        }
+
+        td.employee-info {
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        .employee-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 11px;
+            margin-bottom: 1px;
+        }
+
+        .employee-details {
+            font-size: 9px;
+            color: #6b7280;
+        }
+
+        .employee-number {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 1px 4px;
+            font-size: 8px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .currency {
+            font-weight: 500;
+            font-family: 'Courier New', monospace;
+        }
+
+        .net-salary {
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        /* Totals Row */
+        .totals-row {
+            background: #e5e7eb !important;
+            border-top: 2px solid #9ca3af;
+            font-weight: 600;
+        }
+
+        .totals-row td {
+            padding: 12px 8px;
+            color: #1f2937;
+            font-size: 11px;
+        }
+
+        .totals-label {
+            font-weight: 700;
+            color: #374151;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 25px;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-left: 3px solid #374151;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .generation-info {
+            font-size: 10px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .generation-info strong {
+            color: #374151;
+        }
+
+        .disclaimer {
+            font-size: 9px;
+            color: #9ca3af;
+            text-align: center;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* Print optimizations */
+        @media print {
+            .page {
+                padding: 10px;
+                font-size: 10px;
+            }
+
+            .summary-section {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+                margin-bottom: 15px;
+            }
+
+            .header {
+                margin-bottom: 15px;
+                padding: 15px 20px;
+            }
+
+            .watermark {
+                font-size: 50px;
+            }
+
+            th, td {
+                padding: 6px 4px;
+            }
+
+            .summary-card {
+                padding: 10px;
+            }
+
+            .footer {
+                margin-top: 15px;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .payroll-info {
+                text-align: center;
+            }
+
+            .summary-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            table {
+                font-size: 9px;
+            }
+
+            th, td {
+                padding: 6px 4px;
+            }
+
+            .page {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility classes */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: 700; }
+        .text-sm { font-size: 10px; }
+        .text-xs { font-size: 9px; }
+    </style>
+</head>
+<body>
+    {% load l10n %}
+    {% load currency_p %}
+
+    <div class="page">
+        <!-- Watermark -->
+        <div class="watermark">{{ company.name }}</div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="company-info">
+                    <h1>{{ company.name }}</h1>
+                    <div class="subtitle">Monthly Payroll Report</div>
+                </div>
+                <div class="payroll-info">
+                    <div class="month">{{ month }}</div>
+                    <div class="details">
+                        Generated: {{ current_date }}<br>
+                        {{ summary.total_employees }} Employee{{ summary.total_employees|pluralize }}
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Summary Cards -->
+        <section class="summary-section">
+            <div class="summary-card">
+                <div class="label">Total Employees</div>
+                <div class="value">{{ summary.total_employees }}</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Gross Payroll</div>
+                <div class="value">{{ summary.total_gross|currency_p }}</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Total Deductions</div>
+                <div class="value">{{ summary.total_deductions|currency_p }}</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Net Payroll</div>
+                <div class="value">{{ summary.total_net|currency_p }}</div>
+            </div>
+        </section>
+
+        <!-- Payroll Table -->
+        <section class="table-section">
+            <div class="table-header">
+                <h2>Employee Payroll Details</h2>
+                <div class="subtitle">Detailed breakdown of salaries, deductions, and net pay</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-left">Employee</th>
+                        <th>Gross Salary</th>
+                        <th>NSSF</th>
+                        <th>SHIF</th>
+                        <th>AHL</th>
+                        <th>Taxable Income</th>
+                        <th>PAYE</th>
+                        <th>OTHER</th>
+                        <th>Net Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in payroll %}
+                    <tr>
+                        <td class="employee-info">
+                            <div class="employee-name">
+                                {{ emp.name }}
+                                <span class="employee-number">{{ emp.employee_number }}</span>
+                            </div>
+                            {% if emp.position %}
+                            <div class="employee-details">{{ emp.position }}</div>
+                            {% endif %}
+                        </td>
+                        <td><span class="currency">{{ emp.gross|currency_p }}</span></td>
+                        <td><span class="currency">{{ emp.nssf|currency_p }}</span></td>
+                        <td><span class="currency">{{ emp.shif|currency_p }}</span></td>
+                        <td><span class="currency">{{ emp.ahl|currency_p }}</span></td>
+                        <td><span class="currency">{{ emp.taxable_income|currency_p }}</span></td>
+                        <td><span class="currency">{{ emp.paye|currency_p }}</span></td>
+                        <td><span class="currency">{{ emp.other|currency_p }}</span></td>
+                        <td><span class="currency net-salary">{{ emp.net|currency_p }}</span></td>
+                    </tr>
+                    {% endfor %}
+
+                    <!-- Totals Row -->
+                    <tr class="totals-row">
+                        <td class="totals-label">TOTALS</td>
+                        <td><span class="currency font-bold">{{ summary.total_gross|currency_p }}</span></td>
+                        <td><span class="currency font-bold">{{ summary.total_nssf|currency_p }}</span></td>
+                        <td><span class="currency font-bold">{{ summary.total_shif|currency_p }}</span></td>
+                        <td><span class="currency font-bold">{{ summary.total_ahl|currency_p }}</span></td>
+                        <td><span class="currency font-bold">-</span></td>
+                        <td><span class="currency font-bold">{{ summary.total_paye|currency_p }}</span></td>
+                        <td><span class="currency font-bold">{{ summary.total_other_deductions|currency_p }}</span></td>
+                        <td><span class="currency font-bold net-salary">{{ summary.total_net|currency_p }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="generation-info">
+                    <strong>Generated by:</strong> {{ generated_by }}<br>
+                    <strong>Date & Time:</strong> {{ current_date }} at {{ current_time }}<br>
+                    <strong>Average Salary:</strong> {{ summary.average_salary|currency_p }}
+                </div>
+                <div class="generation-info text-right">
+                    <strong>Report Period:</strong> {{ month }}<br>
+                    <strong>Company:</strong> {{ company.name }}<br>
+                    {% if company.email %}
+                    <strong>Email:</strong> {{ company.email }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="disclaimer">
+                This payroll report is computer-generated and contains confidential salary information.
+                Please handle with appropriate care and maintain confidentiality.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

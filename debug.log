@@ -1,0 +1,140 @@
+INFO 2025-04-02 09:31:47,462 views Employee 1 added to company Company B by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 272, Function: create]
+INFO 2025-04-02 10:00:01,683 views Employee 1 partially updated by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 328, Function: partial_update]
+WARNING 2025-04-02 11:29:32,593 views Employee 1 marked as deleted by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 356, Function: destroy]
+INFO 2025-04-11 17:28:44,730 views Employee 1 added to company Delight Mechanics by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 277, Function: create]
+INFO 2025-04-11 17:28:58,849 views Employee 2 added to company Delight Mechanics by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 277, Function: create]
+INFO 2025-04-11 17:29:04,169 views Employee 3 added to company Delight Mechanics by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 277, Function: create]
+INFO 2025-04-12 07:46:38,846 views Employee 4 added to company Delight Mechanics by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 280, Function: create]
+INFO 2025-04-12 08:05:30,429 views Employee 5 added to company Delight Mechanics by morrisdestro@gmail.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 280, Function: create]
+INFO 2025-06-08 10:06:18,454 views Employee 2 added to company COMPANY-A by companyowner1@companya.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 342, Function: create]
+ERROR 2025-06-12 17:19:40,960 views Company registration error: Unsupported media type "text/plain;charset=UTF-8" in request. [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 356, in _parse
+    raise exceptions.UnsupportedMediaType(media_type)
+rest_framework.exceptions.UnsupportedMediaType: Unsupported media type "text/plain;charset=UTF-8" in request.
+ERROR 2025-06-12 17:21:04,912 views Company registration error: Unsupported media type "text/plain;charset=UTF-8" in request. [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 356, in _parse
+    raise exceptions.UnsupportedMediaType(media_type)
+rest_framework.exceptions.UnsupportedMediaType: Unsupported media type "text/plain;charset=UTF-8" in request.
+ERROR 2025-06-12 17:21:44,460 views Company registration error: Unsupported media type "text/plain;charset=UTF-8" in request. [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 356, in _parse
+    raise exceptions.UnsupportedMediaType(media_type)
+rest_framework.exceptions.UnsupportedMediaType: Unsupported media type "text/plain;charset=UTF-8" in request.
+ERROR 2025-06-12 17:22:32,480 views Company registration error: Unsupported media type "text/plain;charset=UTF-8" in request. [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 356, in _parse
+    raise exceptions.UnsupportedMediaType(media_type)
+rest_framework.exceptions.UnsupportedMediaType: Unsupported media type "text/plain;charset=UTF-8" in request.
+ERROR 2025-06-12 17:23:55,143 views Company registration error: Unsupported media type "text/plain;charset=UTF-8" in request. [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 356, in _parse
+    raise exceptions.UnsupportedMediaType(media_type)
+rest_framework.exceptions.UnsupportedMediaType: Unsupported media type "text/plain;charset=UTF-8" in request.
+ERROR 2025-06-12 17:26:31,980 views Company registration error: Unsupported media type "text/plain;charset=UTF-8" in request. [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 356, in _parse
+    raise exceptions.UnsupportedMediaType(media_type)
+rest_framework.exceptions.UnsupportedMediaType: Unsupported media type "text/plain;charset=UTF-8" in request.
+ERROR 2025-06-12 17:33:17,407 views Company registration error: JSON parse error - Expecting value: line 1 column 2 (char 1) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 1004, Function: post]
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/parsers.py", line 66, in parse
+    return json.load(decoded_stream, parse_constant=parse_constant)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/utils/json.py", line 31, in load
+    return json.load(*args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+        cls=cls, object_hook=object_hook,
+        parse_float=parse_float, parse_int=parse_int,
+        parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/json/__init__.py", line 359, in loads
+    return cls(**kw).decode(s)
+           ~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/json/decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 2 (char 1)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mbae/projects/personal/csm/companies/views.py", line 976, in post
+    serializer = CompanyRegistrationSerializer(data=request.data)
+                                                    ^^^^^^^^^^^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 221, in data
+    self._load_data_and_files()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 284, in _load_data_and_files
+    self._data, self._files = self._parse()
+                              ~~~~~~~~~~~^^
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/request.py", line 359, in _parse
+    parsed = parser.parse(stream, media_type, self.parser_context)
+  File "/Users/mbae/projects/personal/csm/csmvenv/lib/python3.13/site-packages/rest_framework/parsers.py", line 68, in parse
+    raise ParseError('JSON parse error - %s' % str(exc))
+rest_framework.exceptions.ParseError: JSON parse error - Expecting value: line 1 column 2 (char 1)
+INFO 2025-06-12 17:36:18,542 views New company registration: TEST COMPANY (test@company.com) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 982, Function: post]
+INFO 2025-06-12 18:03:55,071 views New company registration: TEST COMPANY2 (test@company2.com) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 982, Function: post]
+INFO 2025-06-12 20:28:05,554 views New company registration: OCEAN WAVES CAR WASH (ocean@waves.com) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 983, Function: post]
+INFO 2025-06-12 20:32:33,297 views New company registration: OCEAN WAVES CAR WASH (ocean@waves.com) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 983, Function: post]
+INFO 2025-06-12 20:34:49,431 views New company registration: OCEAN WAVES CAR WASH (ocean@waves.com) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 983, Function: post]
+INFO 2025-06-12 20:37:04,403 views New company registration: OCEAN WAVES CAR WASH (ocean@waves.com) [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 983, Function: post]
+INFO 2025-06-13 12:22:14,739 views Employee 3 added to company COMPANY-A by companyowner1@companya.com [File: /Users/mbae/projects/personal/csm/companies/views.py, Line: 356, Function: create]

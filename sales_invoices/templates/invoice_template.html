@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice - {{ invoice.invoice_number }}</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 12px;
+      margin: 30px;
+      color: #333;
+      background-color: #fff;
+      line-height: 1.4;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+
+    .company-info, .invoice-info {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .company-info h3, .invoice-info h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .company-info {
+      max-width: 60%;
+    }
+
+    .invoice-info {
+      text-align: right;
+    }
+
+    .invoice-info h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #3498db;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-left: 5px;
+    }
+
+    .status-pending {
+      background-color: #f39c12;
+      color: white;
+    }
+
+    .status-paid {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    .status-cancelled {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .bill-to {
+      margin-top: 30px;
+      font-size: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bill-to-info, .payment-info {
+      flex: 1;
+    }
+
+    .payment-info {
+      text-align: right;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f1f1f1;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .sale-header {
+      background-color: #eaf2f8;
+      font-weight: bold;
+    }
+
+    .sale-header td {
+      padding: 8px 12px;
+    }
+
+    .discount {
+      color: #e74c3c;
+    }
+
+    .tax {
+      color: #7f8c8d;
+    }
+
+    .summary {
+      margin-top: 40px;
+      text-align: right;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .summary-table {
+      width: 350px;
+      margin-left: auto;
+      margin-right: 0;
+      border-collapse: collapse;
+    }
+
+    .summary-table td {
+      padding: 8px 12px;
+      border: none;
+    }
+
+    .summary-table td:first-child {
+      text-align: left;
+      font-weight: normal;
+    }
+
+    .summary-table td:last-child {
+      text-align: right;
+      font-weight: 500;
+    }
+
+    .summary-divider {
+      border-top: 1px solid #ddd;
+    }
+
+    .total-amount {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2c3e50;
+      background-color: #f5f5f5;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      text-align: center;
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+
+    .watermark {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 80px;
+      font-weight: bold;
+      color: rgba(231, 76, 60, 0.08);
+      z-index: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .notes {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+{% load l10n %}
+{% load currency %}
+{% load math_filters %}
+
+  {% if invoice.status|lower == 'pending' %}
+    <div class="watermark">PENDING PAYMENT</div>
+  {% elif invoice.status|lower == 'paid' %}
+    <div class="watermark" style="color: rgba(39, 174, 96, 0.08);">PAID</div>
+  {% elif invoice.status|lower == 'cancelled' %}
+    <div class="watermark" style="color: rgba(231, 76, 60, 0.08);">CANCELLED</div>
+  {% endif %}
+
+  <div class="header">
+    <div class="company-info">
+      <h3>{{ company.name }}</h3>
+      <p>{{ company.address }}</p>
+      <p>Email: {{ company.email }}</p>
+      {% if company.phone %}<p>Phone: {{ company.phone }}</p>{% endif %}
+    </div>
+    <div class="invoice-info">
+      <h3>Invoice #{{ invoice.invoice_number }}</h3>
+      <p><strong>Issue Date:</strong> {{ invoice.date_created }}</p>
+      <p><strong>Due Date:</strong> {{ invoice.due_date }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span class="status-badge status-{{ invoice.status|lower }}">{{ invoice.status }}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="bill-to">
+    <div class="bill-to-info">
+      <p><strong>Bill To:</strong></p>
+      <p>{{ customer.full_name|default:"N/A" }}</p>
+      {% if customer.email %}<p>{{ customer.email }}</p>{% endif %}
+      {% if customer.phone %}<p>{{ customer.phone }}</p>{% endif %}
+    </div>
+    <div class="payment-info">
+      <p><strong>Payment Details:</strong></p>
+      <p>Invoice #{{ invoice.invoice_number }}</p>
+      <p>Amount Due: Ksh. {{ total_amount|currency }}</p>
+      <p>Due Date: {{ invoice.due_date }}</p>
+    </div>
+  </div>
+
+  {% for sale in sales %}
+  <table>
+    <thead>
+      <tr class="sale-header">
+        <td colspan="7">
+          Sale #{{ sale.id }} - {{ sale.date }}
+          {% if sale.serviced_vehicle %} - Vehicle: {{ sale.serviced_vehicle }}{% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th>Unit Price (Ksh)</th>
+        <th>Quantity</th>
+        <th>Discount</th>
+        <th>Tax</th>
+        <th>Total (Ksh)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in sale.sale_items %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>
+          {% if item.type == 'service' and item.service_name %}
+            <strong>{{ item.service_name }}</strong>
+            <br><small>Service</small>
+          {% elif item.type == 'product' and item.product_name %}
+            <strong>{{ item.product_name }}</strong>
+            <br><small>Product</small>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td>{% localize on %}{{ item.amount|currency }}{% endlocalize %}</td>
+        <td>{{ item.quantity }}</td>
+        <td class="discount">
+          {% if item.discount_amount and item.discount_amount != '0.00' %}
+            -{% localize on %}{{ item.discount_amount|currency }}{% endlocalize %}
+            {% if item.discount_rate and item.discount_rate != '0.00' %}
+              <br><small>({{ item.discount_rate }}%)</small>
+            {% endif %}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td class="tax">
+          {% if item.tax_amount and item.tax_amount != '0.00' %}
+            {% localize on %}{{ item.tax_amount|currency }}{% endlocalize %}
+            {% if item.tax_rate and item.tax_rate != '0.00' %}
+              <br><small>({{ item.tax_rate }}%)</small>
+            {% endif %}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td>
+          {% localize on %}{{ item.total|currency }}{% endlocalize %}
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="6" style="text-align: right;"><strong>Sale Total:</strong></td>
+        <td><strong>{% localize on %}{{ sale.sale_amount|currency }}{% endlocalize %}</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  {% endfor %}
+
+  <div class="summary">
+    <table class="summary-table">
+      {% with subtotal=0 tax_total=0 discount_total=0 %}
+      {% for sale in sales %}
+        {% for item in sale.sale_items %}
+          {% with subtotal=subtotal|add:item.subtotal tax_total=tax_total|add:item.tax_amount discount_total=discount_total|add:item.discount_amount %}
+          {% endwith %}
+        {% endfor %}
+      {% endfor %}
+
+      <tr>
+        <td>Subtotal:</td>
+        <td>Ksh. {{ subtotal_amount|currency }}</td>
+      </tr>
+
+      {% if tax_total_amount and tax_total_amount != '0.00' %}
+      <tr>
+        <td>Tax:</td>
+        <td>Ksh. {{ tax_total_amount|currency }}</td>
+      </tr>
+      {% endif %}
+
+      {% if discount_total_amount and discount_total_amount != '0.00' %}
+      <tr>
+        <td class="discount">Discount:</td>
+        <td class="discount">-Ksh. {{ discount_total_amount|currency }}</td>
+      </tr>
+      {% endif %}
+
+      <tr class="summary-divider">
+        <td colspan="2">&nbsp;</td>
+      </tr>
+
+      <tr class="total-amount">
+        <td>Total Amount:</td>
+        <td>Ksh. {{ total_amount|currency }}</td>
+      </tr>
+      {% endwith %}
+    </table>
+  </div>
+
+  <div class="notes">
+    <p><strong>Payment Terms:</strong> Due by {{ invoice.due_date }}</p>
+    <p><strong>Notes:</strong> Thank you for your business. Please make payment by the due date.</p>
+  </div>
+
+  <div class="footer">
+    <p>This is a computer-generated invoice and does not require a signature.</p>
+    <p>{{ company.name }} &copy; {% now "Y" %}</p>
+  </div>
+
+</body>
+</html>
